@@ -1,0 +1,19 @@
+{
+  "name": "sea",
+  "version": "1.0.0",
+  "description": "vue+vuetity\r 2018-12-3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuzonghai8/sea.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuzonghai8/sea/issues"
+  },
+  "homepage": "https://github.com/liuzonghai8/sea#readme"
+}
