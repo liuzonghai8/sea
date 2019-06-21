@@ -15,6 +15,7 @@
     <modules>
         <module>sea-auth-common</module>
         <module>sea-auth-service</module>
+        <module>sea-auth-service2</module>
     </modules>
 
 

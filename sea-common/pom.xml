@@ -9,14 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sea.service</groupId>
-    <artifactId>sea-upms</artifactId>
-
-    <packaging>pom</packaging>
-    <modules>
-        <module>sea-upms-service</module>
-        <module>sea-upms-interface</module>
-    </modules>
+    <groupId>com.sea.common</groupId>
+    <artifactId>sea-common</artifactId>
 
 
 </project>

@@ -11,6 +11,7 @@
 
     <groupId>com.sea.service</groupId>
     <artifactId>sea-upms-service</artifactId>
+
     <dependencies>
         <!--Eureka客户端-->
         <dependency>
@@ -33,15 +34,24 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-      <!--interface-->
-        <!--<dependency>
-            <groupId>com.sea.service</groupId>
-            <artifactId>sea-upms-interface</artifactId>
-        </dependency>-->
+        <!--common-->
+        <dependency>
+            <groupId>com.sea.common</groupId>
+            <artifactId>sea-common</artifactId>
+            <version>${sea.latest.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!--interface-->
+        <dependency>
+            <groupId>com.sea.service</groupId>
+            <artifactId>sea-upms-interface</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
 
     </dependencies>
 
