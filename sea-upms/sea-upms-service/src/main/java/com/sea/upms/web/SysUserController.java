@@ -5,9 +5,7 @@ import com.sea.upms.pojo.SysUser;
 import com.sea.upms.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,8 +24,15 @@ public class SysUserController {
        log.info("queryList {}", sysUserService.list());
         return new Result<>(list);
     }
-    @GetMapping("test")
-    public String getTest(){
-        return "test";
+
+
+
+    @PostMapping("query")
+    public SysUser queryUser(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password
+    ){
+        return null;
+
     }
 }

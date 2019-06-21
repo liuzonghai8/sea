@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sea.auth</groupId>
-    <artifactId>sea-auth-service2</artifactId>
+    <artifactId>sea-auth-service</artifactId>
     <dependencies>
         <!--Eureka客户端-->
         <dependency>
