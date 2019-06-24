@@ -1,6 +1,6 @@
 package api;
 
-import com.sea.upms.pojo.SysUser;
+import com.sea.upms.po.SysUser;
 import org.springframework.web.bind.annotation.*;
 
 /**

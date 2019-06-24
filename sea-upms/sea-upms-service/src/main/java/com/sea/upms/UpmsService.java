@@ -8,7 +8,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableScheduling
 @Slf4j
 @MapperScan("com.sea.upms.mapper")
 public class UpmsService {
