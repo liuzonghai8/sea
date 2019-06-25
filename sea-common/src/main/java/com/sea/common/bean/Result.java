@@ -15,10 +15,10 @@ public class Result<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final Integer NO_LOGIN = -1;
+	public static final Integer NO_LOGIN = -1;//没有权限
 	public static final Integer SUCCESS = 0;
 	public static final Integer FAIL = 1;
-	public static final Integer NO_PERMISSION = 2;
+	public static final Integer NO_PERMISSION = 2;//没有权限
 
 	/**
 	 * 返回处理消息
@@ -54,5 +54,9 @@ public class Result<T> implements Serializable {
 		this.message = e.toString();
 		this.code = FAIL;
 	}
+
+//	public static Result<Object> error(int code ,String message){
+//		return null;
+//	}
 
 }

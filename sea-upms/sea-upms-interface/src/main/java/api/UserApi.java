@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
  * @author bystander
  * @date 2018/10/1
  */
-@RequestMapping("sys/user")
+@RequestMapping("sys")
 public interface UserApi {
 
     /**
@@ -22,12 +22,5 @@ public interface UserApi {
             @RequestParam("password") String password
     );
 
-//    @GetMapping("/{id}")
-//    UserVo findUserAllInfo(@PathVariable("id") Long userid);
 
-//    @GetMapping("/{id}")
-//    UserVo findUserAll(Long userid);
-//
-//    @GetMapping("test")
-//     String test();
 }
