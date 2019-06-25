@@ -1,18 +1,14 @@
 package com.sea.auth.web;
 
 import com.sea.auth.entity.ResultAuth;
-import com.sea.auth.entity.UserInfo;
 import com.sea.auth.properties.JwtProperties;
 import com.sea.auth.service.AuthService;
-import com.sea.auth.utils.JwtUtils;
-import com.sea.common.bean.Result;
+import com.sea.common.bean.ResultVO;
 import com.sea.common.utils.CookieUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +25,7 @@ public class AuthController {
     private JwtProperties jwtProperties;
 
     @PostMapping("/login")
-    public Result<ResultAuth> login(
+    public ResultVO<ResultAuth> login(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             HttpServletRequest request,
@@ -39,7 +35,7 @@ public class AuthController {
        // String token = authService.login(username,password);
         ResultAuth resultAuth = authService.login(username,password);
         CookieUtils.newBuilder(response).httpOnly().maxAge(jwtProperties.getCookieMaxAge()).request(request).build(jwtProperties.getCookieName(), resultAuth.getToken());
-        return new Result<>(resultAuth);
+        return new ResultVO<>(resultAuth);
 
     }
     /**
@@ -50,13 +46,13 @@ public class AuthController {
      * @return
      */
     @GetMapping("/logout")
-    public Result<Void> logout(@CookieValue("SEA_TOKEN") String token, HttpServletResponse response) {
+    public ResultVO<Void> logout(@CookieValue("SEA_TOKEN") String token, HttpServletResponse response) {
 
        log.info("_-------logout -token:{}----------",token);
         if (StringUtils.isNotBlank(token)) {
             CookieUtils.newBuilder(response).maxAge(0).build(jwtProperties.getCookieName(), token);
         }
-        return new Result<>();
+        return new ResultVO<>();
     }
 
 //    @GetMapping("/userInfo")

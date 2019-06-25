@@ -1,12 +1,14 @@
 package com.sea.upms.web;
 
-import com.sea.common.bean.Result;
-import com.sea.upms.pojo.SysUser;
+import com.sea.upms.po.SysUser;
 import com.sea.upms.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("sys")
@@ -17,12 +19,12 @@ public class LoginController {
     private ISysUserService sysUserService;
 
     @PostMapping("login")
-    public Result<SysUser> getUserByName(@Param("username") String username, @Param("password") String password){
-        log.info("-----getUserByName--------,param username is:{}, password is {}",username,password);
-        //return sysUserService.getUserByName(username,password);
-        Result<SysUser> result =new Result<>();
-        result.setCode(1);
-        result.setMessage("登陆失败！");
-        return result;
+
+    public ResponseEntity<SysUser> loginByUserName(@RequestParam("username") String username,
+                                                   @RequestParam("password") String password){
+        log.info("------loginByUserName-----param username is:{} , password is {}",username,password);
+        return ResponseEntity.ok(sysUserService.getUserByNameAndPassword(username, password));
     }
+
+
 }

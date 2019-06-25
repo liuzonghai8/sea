@@ -1,4 +1,4 @@
-package com.sea.upms.pojo;
+package com.sea.upms.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
