@@ -1,11 +1,15 @@
 package com.sea.auth.web;
 
 import com.sea.auth.entity.ResultAuth;
+import com.sea.auth.entity.UserInfo;
 import com.sea.auth.properties.JwtProperties;
 import com.sea.auth.service.AuthService;
+import com.sea.auth.utils.JwtUtils;
 import com.sea.common.bean.ResultVO;
 import com.sea.common.utils.CookieUtils;
 import com.sea.common.utils.SeaCode;
+import com.sea.upms.BO.SysUserBO;
+import com.sea.upms.vo.SysUserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,17 +62,15 @@ public class AuthController {
         return new ResultVO<>(true);
     }
 
-//    @GetMapping("/userInfo")
-//    public Result<UserVo> getUserInfo(@CookieValue("SEA_TOKEN") String token){
-//        log.info("获取前端的token: {}",token);
-//        //从Token中获取用户信息
-//        UserInfo userInfo = JwtUtils.getUserInfo(jwtProperties.getPublicKey(), token);
-//        log.info("用户的Id：,{} ",userInfo.getId());
-//
-//        UserVo userVo = authService.getUserInfo(userInfo.getId());
-//
-//        log.info("userVo is : {}",userVo.toString());
-//
-//        return new Result<>(authService.getUserInfo(userInfo.getId()));
-//    }
+   @GetMapping("/userInfo")
+    public ResultVO<SysUserBO> getUserInfo(@CookieValue("SEA_TOKEN") String token){
+        log.info("获取前端的token: {}",token);
+        //从Token中获取用户信息
+        UserInfo userInfo = JwtUtils.getUserInfo(jwtProperties.getPublicKey(), token);
+        log.info("用户的Id：,{} ",userInfo.getId());
+
+       //authService.getUserInfo(userInfo.getId());
+
+        return new ResultVO<>(authService.getUserInfo(userInfo.getId()));
+   }
 }

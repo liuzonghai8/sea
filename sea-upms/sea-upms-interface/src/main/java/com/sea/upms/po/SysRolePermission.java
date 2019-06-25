@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 用户角色表
+ * 角色权限表
  * </p>
  *
  * @Author scott
@@ -19,31 +19,37 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysUserRole implements Serializable {
+public class SysRolePermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * id
+     */
     @TableId(type = IdType.UUID)
     private String id;
     
-    /**
-     * 用户id
-     */
-    private String userId;
-
     /**
      * 角色id
      */
     private String roleId;
 
-	public SysUserRole() {
-	}
-
-	public SysUserRole(String userId, String roleId) {
-		this.userId = userId;
-		this.roleId = roleId;
-	}
-
+    /**
+     * 权限id
+     */
+    private String permissionId;
     
+    /**
+     * 数据权限
+     */
+    private String dataRuleIds;
+
+    public SysRolePermission() {
+   	}
+       
+   	public SysRolePermission(String roleId, String permissionId) {
+   		this.roleId = roleId;
+   		this.permissionId = permissionId;
+   	}
 
 }
