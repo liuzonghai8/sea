@@ -34,6 +34,9 @@ public class AuthController {
         
        // String token = authService.login(username,password);
         ResultAuth resultAuth = authService.login(username,password);
+        if(resultAuth==null){
+            return
+        }
         CookieUtils.newBuilder(response).httpOnly().maxAge(jwtProperties.getCookieMaxAge()).request(request).build(jwtProperties.getCookieName(), resultAuth.getToken());
         return new ResultVO<>(resultAuth);
 

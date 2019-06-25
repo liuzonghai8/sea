@@ -30,7 +30,7 @@ public class AuthService {
     public ResultAuth login(String username, String password) {
         log.info("------前端传输过来的username:{}，AND Password：{}-------",username,password);
         try {
-            SysUser user = userClient.queryUser(username, password);
+            SysUser user = userClient.loginByUserName(username, password);
             log.info("从数据库查询到的用户为 {}",user);
             if (user == null) {
                 return null;

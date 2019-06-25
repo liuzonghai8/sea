@@ -27,10 +27,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         * 3、再判断密码是否错误，返回密码错误
         * 4、返回用户*/
         SysUser user = sysUserMapper.selectByName(username);
-        if(user==null) throw new SeaException(ExceptionEnum.USER_NOT_EXIST);
+        if(user==null) return null;
+            //throw new SeaException(ExceptionEnum.USER_NOT_EXIST);
         //判断密码
         if(!StringUtils.equals(PasswordUtil.encrypt(username,password,user.getSalt()),user.getPassword()))
-            throw new SeaException(ExceptionEnum.USERNAME_OR_PASSWORD_ERROR);
+            return null;
+           // throw new SeaException(ExceptionEnum.USERNAME_OR_PASSWORD_ERROR);
 
         return user;
     }

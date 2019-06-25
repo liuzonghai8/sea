@@ -1,48 +1,50 @@
 package com.sea.common.bean;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+/**
+ * 引用晓风轻的ResultBean
+ * @author 肖文杰
+ * @param <T>
+ */
+@Data
 public class ResultVO<T> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public static final Integer NO_LOGIN = -1;
-    public static final Integer SUCCESS = 0;
-    public static final Integer FAIL = 1;
-    public static final Integer NO_PERMISSION = 2;
+	public static final int NO_LOGIN = -1;
 
-    /**
-     * 返回处理消息
-     */
-    private String message = "success";
+	public static final int SUCCESS = 0;
 
-    /**
-     * 返回代码
-     */
-    private Integer code = SUCCESS;
+	public static final int FAIL = 1;
 
-    /**
-     * 返回数据对象 data
-     */
-    private T result;
+	public static final int NO_PERMISSION = 2;
 
-    /**
-     * 时间戳
-     */
-    private long timestamp = System.currentTimeMillis();
+	private String message = "success";
 
-    public ResultVO() {
-        super();
-    }
+	private int code = SUCCESS;
 
-    public ResultVO(T data) {
-        super();
-        this.result = data;
-    }
+	private T data;
 
-    public ResultVO(Throwable e) {
-        super();
-        this.message = e.toString();
-        this.code = FAIL;
-    }
+	private long timestamp = System.currentTimeMillis();
+
+
+	public ResultVO() {
+		super();
+	}
+
+	public ResultVO(T data) {
+		super();
+		this.data = data;
+	}
+
+	public ResultVO(Throwable e) {
+		super();
+		this.message = e.toString();
+		this.code = FAIL;
+	}
+
+
 }
