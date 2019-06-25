@@ -5,6 +5,7 @@ import com.sea.auth.properties.JwtProperties;
 import com.sea.auth.service.AuthService;
 import com.sea.common.bean.ResultVO;
 import com.sea.common.utils.CookieUtils;
+import com.sea.common.utils.SeaCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,10 @@ public class AuthController {
             HttpServletResponse response
     ){
         
-       // String token = authService.login(username,password);
         ResultAuth resultAuth = authService.login(username,password);
-        if(resultAuth==null){
-            return
-        }
+
+        if(resultAuth==null) return new ResultVO<>(SeaCode.FAIL,"用户名或密码错");
+
         CookieUtils.newBuilder(response).httpOnly().maxAge(jwtProperties.getCookieMaxAge()).request(request).build(jwtProperties.getCookieName(), resultAuth.getToken());
         return new ResultVO<>(resultAuth);
 
@@ -44,18 +44,18 @@ public class AuthController {
     /**
      * 注销登录
      *
-     * @param token "SWEET_TOKEN"
+     * @param token "SEA_TOKEN"
      * @param response
      * @return
      */
     @GetMapping("/logout")
-    public ResultVO<Void> logout(@CookieValue("SEA_TOKEN") String token, HttpServletResponse response) {
+    public ResultVO<Boolean> logout(@CookieValue("SEA_TOKEN") String token, HttpServletResponse response) {
 
        log.info("_-------logout -token:{}----------",token);
         if (StringUtils.isNotBlank(token)) {
             CookieUtils.newBuilder(response).maxAge(0).build(jwtProperties.getCookieName(), token);
         }
-        return new ResultVO<>();
+        return new ResultVO<>(true);
     }
 
 //    @GetMapping("/userInfo")

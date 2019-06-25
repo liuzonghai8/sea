@@ -1,6 +1,9 @@
 package com.sea.common.bean;
 
+import com.sea.common.utils.SeaCode;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -14,19 +17,12 @@ public class ResultVO<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int NO_LOGIN = -1;
 
-	public static final int SUCCESS = 0;
+	private String message;
 
-	public static final int FAIL = 1;
+	private Integer code;
 
-	public static final int NO_PERMISSION = 2;
-
-	private String message = "success";
-
-	private int code = SUCCESS;
-
-	private T data;
+	private T result;
 
 	private long timestamp = System.currentTimeMillis();
 
@@ -35,15 +31,29 @@ public class ResultVO<T> implements Serializable {
 		super();
 	}
 
-	public ResultVO(T data) {
+	public ResultVO(T result) {
 		super();
-		this.data = data;
+		this.code = SeaCode.SUCCESS;
+		this.message = "success";
+		this.result = result;
+	}
+	public ResultVO(T result, @Nullable String message) {
+		super();
+		this.code = SeaCode.SUCCESS;
+		this.message = message;
+		this.result = result;
+	}
+
+	public ResultVO(Integer code , String message) {
+		super();
+		this.code = code;
+		this.message = message;
 	}
 
 	public ResultVO(Throwable e) {
 		super();
 		this.message = e.toString();
-		this.code = FAIL;
+		this.code = SeaCode.FAIL;
 	}
 
 

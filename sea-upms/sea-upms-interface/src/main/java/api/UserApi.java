@@ -21,7 +21,7 @@ public interface UserApi {
 //            @RequestParam("username") String username,
 //            @RequestParam("password") String password
 //    );
-    @PostMapping("login")
+    @PostMapping("qurey")
     SysUser loginByUserName(
             @RequestParam("username") String username,
             @RequestParam("password") String password);
