@@ -8,8 +8,7 @@ import com.sea.auth.utils.JwtUtils;
 import com.sea.common.bean.ResultVO;
 import com.sea.common.utils.CookieUtils;
 import com.sea.common.utils.SeaCode;
-import com.sea.upms.BO.SysUserBO;
-import com.sea.upms.vo.SysUserVO;
+import com.sea.upms.bo.SysUserBO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class AuthController {
         ResultAuth resultAuth = authService.login(username,password);
 
         if(resultAuth==null) return new ResultVO<>(SeaCode.FAIL,"用户名或密码错");
-
+        //TODO 判断用户状态
         CookieUtils.newBuilder(response).httpOnly().maxAge(jwtProperties.getCookieMaxAge()).request(request).build(jwtProperties.getCookieName(), resultAuth.getToken());
         return new ResultVO<>(resultAuth);
 

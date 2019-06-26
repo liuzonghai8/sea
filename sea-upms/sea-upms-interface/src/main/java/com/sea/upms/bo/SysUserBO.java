@@ -1,4 +1,4 @@
-package com.sea.upms.BO;
+package com.sea.upms.bo;
 
 import com.sea.upms.po.SysPermission;
 import com.sea.upms.po.SysRole;

@@ -3,6 +3,7 @@ package com.sea.upms.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sea.common.enums.ExceptionEnum;
 import com.sea.common.exception.SeaException;
+import com.sea.upms.dto.SysUserDTO;
 import com.sea.upms.mapper.SysUserMapper;
 import com.sea.upms.po.SysUser;
 import com.sea.upms.service.ISysUserService;
@@ -35,5 +36,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
            // throw new SeaException(ExceptionEnum.USERNAME_OR_PASSWORD_ERROR);
 
         return user;
+    }
+
+    @Override
+    public Boolean saveUser(SysUserDTO sysUserDTO) {
+        return null;
     }
 }

@@ -5,7 +5,7 @@ import com.sea.auth.entity.ResultAuth;
 import com.sea.auth.entity.UserInfo;
 import com.sea.auth.properties.JwtProperties;
 import com.sea.auth.utils.JwtUtils;
-import com.sea.upms.BO.SysUserBO;
+import com.sea.upms.bo.SysUserBO;
 import com.sea.upms.po.SysUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
 package com.sea.upms.web;
 
 import com.sea.common.bean.ResultVO;
+import com.sea.upms.dto.SysUserDTO;
 import com.sea.upms.po.SysUser;
 import com.sea.upms.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,11 @@ public class SysUserController {
         return new ResultVO<>(list);
     }
 
+    @PostMapping()
+    public ResultVO<Boolean> addUser(@RequestBody SysUserDTO sysUserDTO){
+        sysUserService.saveUser(sysUserDTO);
+        return null;
+    }
 
 
 }
