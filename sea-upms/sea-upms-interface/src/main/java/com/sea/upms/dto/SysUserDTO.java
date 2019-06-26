@@ -1,9 +1,11 @@
 package com.sea.upms.dto;
 
 import com.sea.upms.po.SysUser;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class SysUserDTO extends SysUser {
 
     private List<String> roles;

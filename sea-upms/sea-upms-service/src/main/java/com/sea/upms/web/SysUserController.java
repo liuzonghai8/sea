@@ -28,8 +28,7 @@ public class SysUserController {
 
     @PostMapping()
     public ResultVO<Boolean> addUser(@RequestBody SysUserDTO sysUserDTO){
-        sysUserService.saveUser(sysUserDTO);
-        return null;
+        return  new ResultVO<>(sysUserService.saveUser(sysUserDTO));
     }
 
 
