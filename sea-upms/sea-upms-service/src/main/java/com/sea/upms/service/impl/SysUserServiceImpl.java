@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sea.common.enums.ExceptionEnum;
 import com.sea.common.exception.SeaException;
 import com.sea.common.utils.ConvertUtils;
+import com.sea.upms.bo.SysUserBO;
 import com.sea.upms.dto.SysUserDTO;
 import com.sea.upms.mapper.SysUserMapper;
 import com.sea.upms.po.SysUser;
@@ -46,9 +47,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         return user;
     }
 
-    /*
-    * 添加用户
-    * */
+    /**
+     * 添加用户
+     * @param sysUserDTO
+     * @return
+     */
     @Override
     public Boolean saveUser(SysUserDTO sysUserDTO) {
         /*
@@ -75,8 +78,27 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         if(ConvertUtils.isNotEmpty(roles)){
             //TODO 添加角色
         }
-
-
         return result;
     }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public SysUserBO getUserAllInfo(String userId) {
+        /*
+        * 1.获取用户基本信息
+        * 2.获取用户角色
+        * 3.获取用户权限及菜单
+        * */
+        SysUserBO sysUserBo = new SysUserBO();
+        SysUser sysUser = sysUserMapper.selectById(userId);
+
+        sysUserBo.setSysUser(sysUser);
+        return sysUserBo;
+    }
+
+
 }

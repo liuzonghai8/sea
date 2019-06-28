@@ -3,6 +3,7 @@ package com.sea.upms.web;
 import com.sea.common.bean.ResultBeans;
 import com.sea.common.bean.ResultVO;
 import com.sea.common.utils.SeaCode;
+import com.sea.upms.dto.SysUserDTO;
 import com.sea.upms.po.SysUser;
 import com.sea.upms.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -53,13 +54,9 @@ public class LoginController {
     public SysUser loginByUserName(@RequestParam("username") String username,
                                              @RequestParam("password") String password){
         log.info("------loginByUserName-----param username is:{} , password is {}",username,password);
-
-       /* SysUser sysUser = sysUserService.getUserByNameAndPassword(username,password);
-
-        if(sysUser == null) return new ResultVO<>(SeaCode.FAIL,"用户名或密码错");
-
-        return new ResultVO<>(sysUser,"登陆成功");*/
         return sysUserService.getUserByNameAndPassword(username,password);
     }
+
+
 
 }
