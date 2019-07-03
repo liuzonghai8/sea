@@ -7,14 +7,15 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sea.common.utils.ConvertUtils;
 import com.sea.upms.dto.SysUserDTO;
 import com.sea.upms.dto.SysUserInfo;
+import com.sea.upms.mapper.SysPermissionMapper;
 import com.sea.upms.mapper.SysUserMapper;
 import com.sea.upms.mapper.SysUserRoleMapper;
 import com.sea.upms.po.SysUser;
 import com.sea.upms.po.SysUserRole;
+import com.sea.upms.service.ISysUserRoleService;
 import com.sea.upms.service.ISysUserService;
 import com.sea.upms.utils.PasswordUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
    @Autowired
    private SysUserMapper sysUserMapper;
    @Autowired
-   private SysUserRoleMapper sysUserRoleMapper;
+   private ISysUserRoleService sysUserRoleService;
+   @Autowired
+   private SysPermissionMapper sysPermissionMapper;
 
     @Override
     public SysUser getUserByNameAndPassword(String username, String password) {
@@ -51,7 +54,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
 
         log.info("-------eq:----{}",eq);
 
-        SysUser user = sysUserMapper.selectOne(Wrappers.<SysUser>query()
+        SysUser user =  sysUserMapper.selectOne(Wrappers.<SysUser>query()
                 .lambda().eq(SysUser::getUsername, username));
         if(user==null) return null;
             //throw new SeaException(ExceptionEnum.USER_NOT_EXIST);
@@ -115,13 +118,24 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         userInfo.setSysUser(sysUser);
 
         //roles
-        List<String> roles = sysUserRoleMapper.selectList(Wrappers.<SysUserRole>query()
+        List<String> roles = sysUserRoleService.list(Wrappers.<SysUserRole>query()
                 .lambda().eq(SysUserRole::getUserId, sysUser.getId()))
                 .stream()
                 .map(SysUserRole::getRoleId)
                 .collect(Collectors.toList());
         log.info("------roles:----{}",roles);
         userInfo.setRoles(ArrayUtil.toArray(roles, String.class));
+
+        //menus
+       /**
+        * 1,左连接查询用户改角色菜单
+        * */
+
+//       roles.forEach(roleid->{
+//                sysPermissionMapper.getPermissionByRoleId(roleid)
+//       });
+
+
 
 
 

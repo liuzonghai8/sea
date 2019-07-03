@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sea.upms.mapper.SysUserRoleMapper;
 import com.sea.upms.po.SysUserRole;
 import com.sea.upms.service.ISysUserRoleService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper,SysUserRole> implements ISysUserRoleService {
 }
