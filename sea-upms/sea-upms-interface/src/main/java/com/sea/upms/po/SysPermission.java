@@ -28,7 +28,7 @@ public class SysPermission implements Serializable {
 	/**
 	 * id
 	 */
-	@TableId(type = IdType.UUID)
+	@TableId(type = IdType.ID_WORKER_STR)
 	private String id;
 
 	/**

@@ -8,7 +8,6 @@ import com.sea.auth.utils.JwtUtils;
 import com.sea.common.bean.ResultVO;
 import com.sea.common.utils.CookieUtils;
 import com.sea.common.utils.SeaCode;
-import com.sea.upms.bo.SysUserBO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class AuthController {
     }
 
    @GetMapping("/userInfo")
-    public ResultVO<SysUserBO> getUserInfo(@CookieValue("SEA_TOKEN") String token){
+    public ResultVO getUserInfo(@CookieValue("SEA_TOKEN") String token){
         log.info("获取前端的token: {}",token);
         //从Token中获取用户信息
         UserInfo userInfo = JwtUtils.getUserInfo(jwtProperties.getPublicKey(), token);

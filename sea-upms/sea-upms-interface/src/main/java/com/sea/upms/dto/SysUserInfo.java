@@ -2,8 +2,6 @@ package com.sea.upms.dto;
 
 import com.sea.upms.po.SysUser;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.Serializable;
 
 @Data

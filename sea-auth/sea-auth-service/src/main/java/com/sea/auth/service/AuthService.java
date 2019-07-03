@@ -6,6 +6,7 @@ import com.sea.auth.entity.UserInfo;
 import com.sea.auth.properties.JwtProperties;
 import com.sea.auth.utils.JwtUtils;
 import com.sea.upms.bo.SysUserBO;
+import com.sea.upms.dto.SysUserInfo;
 import com.sea.upms.po.SysUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,11 @@ public class AuthService {
         }
     }
 
-    public SysUserBO getUserInfo(String id) {
+    public SysUserInfo getUserInfo(String id) {
         //TODO 1、获取用户，2、角色，3、获取用户权限，4、获取菜单
-
-        return null;
+        SysUserInfo userAllInfo = userClient.getUserAllInfo(id);
+        log.info("------userInfo:--------{}",userAllInfo);
+        return userAllInfo;
     }
 
 

@@ -4,12 +4,14 @@ spring:
   application:
     name: upms-service
   datasource:
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sea?characterEncoding=utf8&useSSL=true
     username: post
     password: 123456
     hikari:
       maximum-pool-size: 30
       minimum-idle: 10
+
 eureka:
   client:
     service-url:

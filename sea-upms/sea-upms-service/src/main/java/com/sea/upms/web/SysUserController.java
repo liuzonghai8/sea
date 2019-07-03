@@ -1,13 +1,11 @@
 package com.sea.upms.web;
 
 import com.sea.common.bean.ResultVO;
-import com.sea.upms.bo.SysUserBO;
 import com.sea.upms.dto.SysUserDTO;
+import com.sea.upms.dto.SysUserInfo;
 import com.sea.upms.po.SysUser;
 import com.sea.upms.service.ISysUserService;
-import com.sea.upms.vo.SysUserVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +20,7 @@ public class SysUserController {
     private ISysUserService sysUserService;
 
     @GetMapping("list")
-    public ResultVO<List<SysUser>> queryList(){
+    public ResultVO queryList(){
         log.info("hell");
         List<SysUser> list = sysUserService.list();
        log.info("queryList {}", sysUserService.list());
@@ -45,11 +43,14 @@ public class SysUserController {
     }
 
     /**
-     *  通过用户ID 获取用户相关的所有信息，包括角色、权限、菜单
+     *  通过用户ID 获取用户相关的所有信息，包括角色、权限、菜单 @PathVariable("id")
      */
-    @GetMapping("Info")
-    public SysUserBO getUserAllInfo(String userId){
-        return  sysUserService.getUserAllInfo(userId);
+    @GetMapping("info/{id}")
+    public SysUserInfo getUserAllInfo(@PathVariable("id") String id){
+        log.info("-------id is :---------{}",id);
+        return  sysUserService.getUserAllInfo(id);
     }
+
+
 
 }

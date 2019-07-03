@@ -9,7 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @Slf4j
-@MapperScan("com.sea.upms.mapper")
+//@MapperScan("com.sea.upms.mapper")
 public class UpmsService {
     public static void main(String[] args) {
         SpringApplication.run(UpmsService.class);

@@ -30,7 +30,7 @@ public class SysUser implements Serializable {
      * id
      */
     //TODO ID自动生成修改成微服务唯一性
-    @TableId(type = IdType.UUID)
+    @TableId(type = IdType.ID_WORKER_STR)
     private String id;
     
     /**

@@ -1,17 +1,20 @@
 package com.sea.upms.service.impl;
 
+import cn.hutool.core.util.ArrayUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sea.common.enums.ExceptionEnum;
-import com.sea.common.exception.SeaException;
 import com.sea.common.utils.ConvertUtils;
-import com.sea.upms.bo.SysUserBO;
 import com.sea.upms.dto.SysUserDTO;
+import com.sea.upms.dto.SysUserInfo;
 import com.sea.upms.mapper.SysUserMapper;
+import com.sea.upms.mapper.SysUserRoleMapper;
 import com.sea.upms.po.SysUser;
+import com.sea.upms.po.SysUserRole;
 import com.sea.upms.service.ISysUserService;
-
 import com.sea.upms.utils.PasswordUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,6 +32,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
 
    @Autowired
    private SysUserMapper sysUserMapper;
+   @Autowired
+   private SysUserRoleMapper sysUserRoleMapper;
+
     @Override
     public SysUser getUserByNameAndPassword(String username, String password) {
         /*
@@ -36,7 +43,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         * 2、不为空，先判断用户是否锁定，锁定返回锁定信息 //放控制层
         * 3、再判断密码是否错误，返回密码错误
         * 4、返回用户*/
-        SysUser user = sysUserMapper.selectByName(username);
+        //手写sql语句
+        //SysUser user = sysUserMapper.selectByName(username);
+        //wrappers 的查询连接语句
+        final LambdaQueryWrapper<SysUser> eq = Wrappers.<SysUser>query()
+                .lambda().eq(SysUser::getUsername, username);
+
+        log.info("-------eq:----{}",eq);
+
+        SysUser user = sysUserMapper.selectOne(Wrappers.<SysUser>query()
+                .lambda().eq(SysUser::getUsername, username));
         if(user==null) return null;
             //throw new SeaException(ExceptionEnum.USER_NOT_EXIST);
         //判断密码
@@ -87,17 +103,29 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
      * @return
      */
     @Override
-    public SysUserBO getUserAllInfo(String userId) {
+    public SysUserInfo getUserAllInfo(String userId) {
         /*
         * 1.获取用户基本信息
         * 2.获取用户角色
         * 3.获取用户权限及菜单
         * */
-        SysUserBO sysUserBo = new SysUserBO();
-        SysUser sysUser = sysUserMapper.selectById(userId);
+        SysUserInfo userInfo = new SysUserInfo();
+        SysUser sysUser =baseMapper.selectById(userId);
+        log.info("---用户信息：--sysUser-----:{}",sysUser);
+        userInfo.setSysUser(sysUser);
 
-        sysUserBo.setSysUser(sysUser);
-        return sysUserBo;
+        //roles
+        List<String> roles = sysUserRoleMapper.selectList(Wrappers.<SysUserRole>query()
+                .lambda().eq(SysUserRole::getUserId, sysUser.getId()))
+                .stream()
+                .map(SysUserRole::getRoleId)
+                .collect(Collectors.toList());
+        log.info("------roles:----{}",roles);
+        userInfo.setRoles(ArrayUtil.toArray(roles, String.class));
+
+
+
+        return userInfo;
     }
 
 

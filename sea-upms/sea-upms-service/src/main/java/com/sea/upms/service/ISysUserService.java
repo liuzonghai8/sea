@@ -1,8 +1,8 @@
 package com.sea.upms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.sea.upms.bo.SysUserBO;
 import com.sea.upms.dto.SysUserDTO;
+import com.sea.upms.dto.SysUserInfo;
 import com.sea.upms.po.SysUser;
 
 public interface ISysUserService extends IService<SysUser> {
@@ -11,5 +11,6 @@ public interface ISysUserService extends IService<SysUser> {
 
     Boolean saveUser(SysUserDTO sysUserDTO);
 
-    SysUserBO getUserAllInfo(String userId);
+    SysUserInfo getUserAllInfo(String userId);
+
 }
