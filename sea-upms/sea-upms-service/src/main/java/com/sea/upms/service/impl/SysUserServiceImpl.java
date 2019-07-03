@@ -10,8 +10,10 @@ import com.sea.upms.dto.SysUserInfo;
 import com.sea.upms.mapper.SysPermissionMapper;
 import com.sea.upms.mapper.SysUserMapper;
 import com.sea.upms.mapper.SysUserRoleMapper;
+import com.sea.upms.po.SysPermission;
 import com.sea.upms.po.SysUser;
 import com.sea.upms.po.SysUserRole;
+import com.sea.upms.service.ISysPermisionService;
 import com.sea.upms.service.ISysUserRoleService;
 import com.sea.upms.service.ISysUserService;
 import com.sea.upms.utils.PasswordUtil;
@@ -21,9 +23,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +36,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
    @Autowired
    private ISysUserRoleService sysUserRoleService;
    @Autowired
-   private SysPermissionMapper sysPermissionMapper;
+   private ISysPermisionService sysPermisionService;
 
     @Override
     public SysUser getUserByNameAndPassword(String username, String password) {
@@ -130,14 +130,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
        /**
         * 1,左连接查询用户改角色菜单
         * */
+        Set<String> permissions = new HashSet<>();
+       roles.forEach(roleid->{
+           List<String> collect = sysPermisionService.getPermissionByRoleId(roleid)
+                   .stream()
+                   .filter(permission -> org.apache.commons.lang.StringUtils.isNotEmpty(permission.getPerms()))
+                   .map(SysPermission::getPerms)
+                   .collect(Collectors.toList());
+           permissions.addAll(collect);
+       });
 
-//       roles.forEach(roleid->{
-//                sysPermissionMapper.getPermissionByRoleId(roleid)
-//       });
-
-
-
-
+       userInfo.setPermissions(ArrayUtil.toArray(permissions,String.class));
 
         return userInfo;
     }
