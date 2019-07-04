@@ -1,36 +1,36 @@
-1、创建远程仓库
-(1)登录github创建repository
-(2)
-#
-2、Git 配置
-(1)设置全局
-git config --global user.name "John Doe"
-git config --global user.email johndoe@example.com
-#
-3、Git常用基础命令	
-(1)克隆 git clone URL <preject name>
+##1、创建远程仓库
+- (1)登录github创建repository
+- (2)
 
-(2)关联远程仓库 git remote origin URL
+##2、Git 配置
+- (1)设置全局
+- git config --global user.name "John Doe"
+- git config --global user.email johndoe@example.com
 
-(3)第一次提交远程 git push -u origin master
+##3、Git常用基础命令	
+- (1)克隆 git clone URL <preject name>
 
-(4)查看状态 git status
+- (2)关联远程仓库 git remote origin URL
 
-(5)把修改内容添加至暂存 git add -A .
+- (3)第一次提交远程 git push -u origin master
 
-(6)把暂存内容提交到本地仓库 git commit -m “message”
+- (4)查看状态 git status
 
-(7)把本地仓库提交到远程仓库 git push origin master
+- (5)把修改内容添加至暂存 git add -A .
 
-(8)拉取远程仓库内容至本地仓库  git fetch URL 
+- (6)把暂存内容提交到本地仓库 git commit -m “message”
 
-(9)把本地仓库内容合并到项目  git pull origin master
+- (7)把本地仓库提交到远程仓库 git push origin master
 
-(10)git remote add origin你项目的地址
+- (8)拉取远程仓库内容至本地仓库  git fetch URL 
 
-(11)git push -u origin master
-#
-4、分支管理
+- (9)把本地仓库内容合并到项目  git pull origin master
+
+- (10)git remote add origin你项目的地址
+
+- (11)git push -u origin master
+
+##4、分支管理
 
 (1)查看分支 git branch
 
@@ -46,14 +46,17 @@ git config --global user.email johndoe@example.com
 
 (7)删除分支 git branch -d <name>
 
-5、其它命令
+##5、其它命令
 
 (1)查看远程仓库信息 git remote -v
 
-6、H 
+##6、强覆盖本地
+- git fetch --all
+- git reset --hard origin/master
+- git pull
 
 
 
 参数网站
 
-1、https://www.cnblogs.com/ruofengzhishang/p/3842587.html
+- 1、https://www.cnblogs.com/ruofengzhishang/p/3842587.html
