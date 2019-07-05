@@ -130,11 +130,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         * */
         Set<String> permissions = new HashSet<>();
        roles.forEach(roleid->{
-           List<String> collect = sysPermisionService.getPermissionByRoleId(roleid)
-                   .stream()
-                   .filter(permission -> org.apache.commons.lang.StringUtils.isNotEmpty(permission.getPerms()))
-                   .map(SysPermission::getPerms)
-                   .collect(Collectors.toList());
+           List<SysPermission> permissionList = sysPermisionService.getPermissionByRoleId(roleid);
+
+           List<String> collect = sysPermisionService.getPerms(permissionList);
            permissions.addAll(collect);
        });
 
