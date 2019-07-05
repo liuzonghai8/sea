@@ -13,4 +13,5 @@ public interface ISysUserService extends IService<SysUser> {
 
     SysUserInfo getUserAllInfo(String userId);
 
+    SysUser saveUserTest(SysUserDTO sysUserDTO);
 }

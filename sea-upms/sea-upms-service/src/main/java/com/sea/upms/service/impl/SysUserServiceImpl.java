@@ -3,8 +3,12 @@ package com.sea.upms.service.impl;
 import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.netflix.discovery.CommonConstants;
+import com.sea.common.bean.CommonConstant;
 import com.sea.common.utils.ConvertUtils;
+import com.sea.upms.dto.MenuTree;
 import com.sea.upms.dto.SysUserDTO;
 import com.sea.upms.dto.SysUserInfo;
 import com.sea.upms.mapper.SysUserMapper;
@@ -15,6 +19,8 @@ import com.sea.upms.service.ISysPermisionService;
 import com.sea.upms.service.ISysUserRoleService;
 import com.sea.upms.service.ISysUserService;
 import com.sea.upms.utils.PasswordUtil;
+import com.sea.upms.vo.MenuVO;
+import com.sea.upms.vo.TreeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -129,16 +135,45 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         * 1,左连接查询用户改角色菜单
         * */
         Set<String> permissions = new HashSet<>();
+        Set<SysPermission> all = new HashSet<>();
        roles.forEach(roleid->{
            List<SysPermission> permissionList = sysPermisionService.getPermissionByRoleId(roleid);
-
+           //权限列表
            List<String> collect = sysPermisionService.getPerms(permissionList);
            permissions.addAll(collect);
+            //menus 列表
+           all.addAll(permissionList);
        });
+
+        List<MenuTree> menuTreeList = all.stream()
+                .filter(menuVo -> CommonConstant.MENU_TYPE_0.equals(menuVo.getMenuType()))
+                .map(MenuTree::new)
+                .sorted(Comparator.comparingInt(MenuTree::getSort))
+                .collect(Collectors.toList());
+        TreeUtil.buildByLoop(menuTreeList, -1);
 
        userInfo.setPermissions(ArrayUtil.toArray(permissions,String.class));
 
         return userInfo;
+    }
+
+    @Override
+    public SysUser saveUserTest(SysUserDTO sysUserDTO) {
+        log.info("-----saveUser----------controller传过来的参数为：{}",sysUserDTO);
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(sysUserDTO,sysUser);
+//        String id =UUID.randomUUID().toString().replace("-", "");
+//        sysUser.setId(id);
+        //设置用户salt
+        String salt = sysUser.getSalt();//ConvertUtils.randomGen(8);
+        //加密密码
+        String password = PasswordUtil.encrypt(sysUser.getUsername(), sysUser.getPassword(), salt);
+        sysUser.setPassword(password);
+        log.info("------name:{}-----",sysUser.getUsername());
+        log.info("------salt:{}-----",sysUser.getSalt());
+        log.info("------password:{}-----",password);
+        //Boolean result = this.save(sysUser);
+        return sysUser;
     }
 
 

@@ -51,6 +51,10 @@ public class SysUserController {
         return  sysUserService.getUserAllInfo(id);
     }
 
+    @PostMapping("test")
+    public ResultVO testAdd(@RequestBody SysUserDTO sysUserDTO){
+        return new ResultVO<>(sysUserService.saveUserTest(sysUserDTO));
+    }
 
 
 }
