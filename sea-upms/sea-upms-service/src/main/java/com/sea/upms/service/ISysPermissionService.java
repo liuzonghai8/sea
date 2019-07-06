@@ -5,7 +5,7 @@ import com.sea.upms.po.SysPermission;
 
 import java.util.List;
 
-public interface ISysPermisionService extends IService<SysPermission> {
+public interface ISysPermissionService extends IService<SysPermission> {
 
     /**
      * 根据roleid 获取权限

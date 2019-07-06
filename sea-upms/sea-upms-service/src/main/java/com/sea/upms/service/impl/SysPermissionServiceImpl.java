@@ -3,7 +3,7 @@ package com.sea.upms.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sea.upms.mapper.SysPermissionMapper;
 import com.sea.upms.po.SysPermission;
-import com.sea.upms.service.ISysPermisionService;
+import com.sea.upms.service.ISysPermissionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SysPermisionServiceImpl extends ServiceImpl<SysPermissionMapper,SysPermission> implements ISysPermisionService {
+public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper,SysPermission> implements ISysPermissionService {
 
   @Autowired
   private SysPermissionMapper sysPermissionMapper;

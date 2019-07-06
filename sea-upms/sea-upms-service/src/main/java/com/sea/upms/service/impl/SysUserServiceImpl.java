@@ -3,10 +3,7 @@ package com.sea.upms.service.impl;
 import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.netflix.discovery.CommonConstants;
-import com.sea.common.bean.CommonConstant;
 import com.sea.common.utils.ConvertUtils;
 import com.sea.upms.dto.MenuTree;
 import com.sea.upms.dto.SysUserDTO;
@@ -15,11 +12,10 @@ import com.sea.upms.mapper.SysUserMapper;
 import com.sea.upms.po.SysPermission;
 import com.sea.upms.po.SysUser;
 import com.sea.upms.po.SysUserRole;
-import com.sea.upms.service.ISysPermisionService;
+import com.sea.upms.service.ISysPermissionService;
 import com.sea.upms.service.ISysUserRoleService;
 import com.sea.upms.service.ISysUserService;
 import com.sea.upms.utils.PasswordUtil;
-import com.sea.upms.vo.MenuVO;
 import com.sea.upms.vo.TreeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +36,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
    @Autowired
    private ISysUserRoleService sysUserRoleService;
    @Autowired
-   private ISysPermisionService sysPermisionService;
+   private ISysPermissionService sysPermisionService;
 
     @Override
     public SysUser getUserByNameAndPassword(String username, String password) {
@@ -145,14 +141,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
            all.addAll(permissionList);
        });
 
-        List<MenuTree> menuTreeList = all.stream()
+       /* List<MenuTree> menuTreeList = all.stream()
                 .filter(menuVo -> CommonConstant.MENU_TYPE_0.equals(menuVo.getMenuType()))
                 .map(MenuTree::new)
                 .sorted(Comparator.comparingInt(MenuTree::getSort))
-                .collect(Collectors.toList());
-        TreeUtil.buildByLoop(menuTreeList, -1);
+                .collect(Collectors.toList());*/
+       List<MenuTree> menuTrees = new ArrayList(all);
+        log.info("----menuTrees---{}",menuTrees);
 
-       userInfo.setPermissions(ArrayUtil.toArray(permissions,String.class));
+         List<MenuTree> menuTrees1 = TreeUtil.buildByLoop(menuTrees, -1);
+
+         log.info("----menuTree buil---{}",menuTrees1);
+
+        userInfo.setPermissions(ArrayUtil.toArray(permissions,String.class));
 
         return userInfo;
     }
