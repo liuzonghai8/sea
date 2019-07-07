@@ -16,7 +16,7 @@ import com.sea.upms.service.ISysPermissionService;
 import com.sea.upms.service.ISysUserRoleService;
 import com.sea.upms.service.ISysUserService;
 import com.sea.upms.utils.PasswordUtil;
-import com.sea.upms.vo.TreeUtil;
+import com.sea.upms.utils.TreeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -146,15 +146,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
                 .map(MenuTree::new)
                 .sorted(Comparator.comparingInt(MenuTree::getSort))
                 .collect(Collectors.toList());*/
-       List<MenuTree> menuTrees = new ArrayList(all);
+       List<SysPermission> menuTrees = new ArrayList(all);
         log.info("----menuTrees---{}",menuTrees);
 
-         List<MenuTree> menuTrees1 = TreeUtil.buildByLoop(menuTrees, -1);
+         List<MenuTree> menus = TreeUtil.builTree(menuTrees,"-1");
 
-         log.info("----menuTree buil---{}",menuTrees1);
-
+         log.info("----menuTree buil---{}",menus);
+        userInfo.setMenus(menus);
         userInfo.setPermissions(ArrayUtil.toArray(permissions,String.class));
-
+//        userInfo.setMenus(menus);
         return userInfo;
     }
 

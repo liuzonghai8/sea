@@ -25,7 +25,7 @@ public class BuildTree {
                     parent.getChildren().add(children);
                     children.setParent(true);
                     parent.setChildren(true);
-                    parent.setAttributes(parent.getAttributes());
+                   // parent.setAttributes(parent.getAttributes());
                     continue;
                 }
             }
